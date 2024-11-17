@@ -3,7 +3,10 @@
 ![Nix Flake](https://img.shields.io/badge/NIX%20FLAKE-5277C3.svg?logo=NixOS&logoColor=white) 
 
 Simple library for using ssd1306 displays with the Raspberry Pi Pico and the pico-sdk.
-This is an opinionated fork of [David Schramm's pico-ssd1306](https://github.com/daschr/pico-ssd1306) that adds CMake and Nix support (plus a few changes by [Jonas Grosse-Holz](https://github.com/daschr/pico-ssd1306/pull/18) to add rotation), and generally removes all the extra unnecessary stuff ;)
+
+## What does this fork change?
+
+This is an **opinionated** fork of [David Schramm's pico-ssd1306](https://github.com/daschr/pico-ssd1306) that adds CMake and Nix support (plus a few changes by [Jonas Grosse-Holz](https://github.com/daschr/pico-ssd1306/pull/18) to add rotation), and generally removes all the extra unnecessary stuff. :wink:
 
 ## Usage
 * Import this project as a submodule in your project
