@@ -40,6 +40,7 @@ int ssd1306_init(ssd1306_t *p, uint16_t width, uint16_t height, uint8_t address,
   p->height = height;
   p->pages = height / 8;
   p->address = address;
+  p->rotation = ROT_0;
 
   p->i2c_i = i2c_instance;
 
@@ -100,7 +101,27 @@ inline void ssd1306_invert(ssd1306_t *p, uint8_t inv) {
 
 inline void ssd1306_clear(ssd1306_t *p) { memset(p->buffer, 0, p->bufsize); }
 
+inline void ssd1306_set_rotation(ssd1306_t *p, ssd1306_rotation_t rotation) {
+  p->rotation = rotation;
+}
+
+void rotate_coordinates(ssd1306_t *p, uint32_t *x, uint32_t *y) {
+  uint32_t tmp_x = *x;
+  if (p->rotation == ROT_90) {
+    *x = p->height - *y - 1;
+    *y = tmp_x;
+  } else if (p->rotation == ROT_180) {
+    *x = p->width - *x - 1;
+    *y = p->height - *y - 1;
+  } else if (p->rotation == ROT_270) {
+    *x = *y;
+    *y = p->width - tmp_x - 1;
+  }
+  // Keep coordinates as is for ROT_0
+}
+
 void ssd1306_clear_pixel(ssd1306_t *p, uint32_t x, uint32_t y) {
+  rotate_coordinates(p, &x, &y);
   if (x >= p->width || y >= p->height)
     return;
 
@@ -108,6 +129,7 @@ void ssd1306_clear_pixel(ssd1306_t *p, uint32_t x, uint32_t y) {
 }
 
 void ssd1306_draw_pixel(ssd1306_t *p, uint32_t x, uint32_t y) {
+  rotate_coordinates(p, &x, &y);
   if (x >= p->width || y >= p->height)
     return;
 

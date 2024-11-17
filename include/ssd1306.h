@@ -24,15 +24,23 @@ typedef enum {
   SET_CHARGE_PUMP = 0x8D
 } ssd1306_command_t;
 
+typedef enum {
+  ROT_0 = 0,
+  ROT_90 = 1,
+  ROT_180 = 2,
+  ROT_270 = 3,
+} ssd1306_rotation_t;
+
 typedef struct {
-  uint8_t width;   /**< width of display */
-  uint8_t height;  /**< height of display */
-  uint8_t pages;   /**< stores pages of display (calculated on initialization*/
-  uint8_t address; /**< i2c address of display*/
-  i2c_inst_t *i2c_i; /**< i2c connection instance */
-  bool external_vcc; /**< whether display uses external vcc */
-  uint8_t *buffer;   /**< display buffer */
-  size_t bufsize;    /**< buffer size */
+  uint8_t width;
+  uint8_t height;
+  uint8_t pages;
+  uint8_t address;
+  i2c_inst_t *i2c_i;
+  bool external_vcc;
+  uint8_t *buffer;
+  size_t bufsize;
+  ssd1306_rotation_t rotation;
 } ssd1306_t;
 
 int ssd1306_init(ssd1306_t *p, uint16_t width, uint16_t height, uint8_t address,
@@ -51,6 +59,8 @@ void ssd1306_invert(ssd1306_t *p, uint8_t inv);
 void ssd1306_show(ssd1306_t *p);
 
 void ssd1306_clear(ssd1306_t *p);
+
+void ssd1306_set_rotation(ssd1306_t *p, ssd1306_rotation_t rotation);
 
 void ssd1306_clear_pixel(ssd1306_t *p, uint32_t x, uint32_t y);
 
