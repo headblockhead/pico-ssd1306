@@ -108,7 +108,7 @@ inline void ssd1306_set_rotation(ssd1306_t *p, ssd1306_rotation_t rotation) {
 void rotate_coordinates(ssd1306_t *p, uint32_t *x, uint32_t *y) {
   uint32_t tmp_x = *x;
   if (p->rotation == ROT_90) {
-    *x = p->height - *y - 1;
+    *x = p->width - *y - 1;
     *y = tmp_x;
   } else if (p->rotation == ROT_180) {
     *x = p->width - *x - 1;
