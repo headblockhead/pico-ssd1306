@@ -115,7 +115,7 @@ void rotate_coordinates(ssd1306_t *p, uint32_t *x, uint32_t *y) {
     *y = p->height - *y - 1;
   } else if (p->rotation == ROT_270) {
     *x = *y;
-    *y = p->width - tmp_x - 1;
+    *y = p->height - tmp_x - 1;
   }
   // Keep coordinates as is for ROT_0
 }
